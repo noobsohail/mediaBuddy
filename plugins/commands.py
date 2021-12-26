@@ -59,7 +59,7 @@ async def index_media_chats(c: Bot, m: Message):
             if not user_dialogs.chat.is_restricted:
                 dialogues = user_dialogs.chat.id
                 if str(dialogues).startswith('-100'):
-                    chat_list.append(dialogues)
+                    chat_list.append(dialogues)   
     except FloodWait as e:
         await slp(e.x)
     #
@@ -70,7 +70,7 @@ async def index_media_chats(c: Bot, m: Message):
             detail_A = await c.USER.get_chat(chats)
             result = Presets.CHAT_LIST_TXT.format(detail_A.invite_link,
                                                   detail_A.title,
-                                                  'SG' if detail_A.type == 'supergroup' else 'Ch')
+                                                  'SG' if detail_A.type == 'supergroup' else 'bot')
             chat_names_A.append(result)
         except FloodWait as e:
             await slp(e.x)
@@ -94,7 +94,7 @@ async def index_media_chats(c: Bot, m: Message):
         for chats in chat_list:
             async for user_messages in c.USER.iter_history(chat_id=chats, limit=25):
                 if user_messages.document is not None:
-                    count += 1
+                    count += 1 
             if count >= 10:
                 final_chat_list.append(chats)
             count = int()
@@ -108,7 +108,7 @@ async def index_media_chats(c: Bot, m: Message):
             detail_B = await c.USER.get_chat(chats)
             result = Presets.CHAT_LIST_TXT.format(detail_B.invite_link,
                                                   detail_B.title,
-                                                  'SG' if detail_B.type == 'supergroup' else 'Ch')
+                                                  'SG' if detail_B.type == 'supergroup' else 'bot')
             chat_names_B.append(result)
         except FloodWait as e:
             await slp(e.x)
@@ -139,7 +139,7 @@ async def update_media_chat(c: Bot, m: Message):
                 return
             final_chat_list.append(chat_id)
             await msg.edit(Presets.NEW_CHAT_CNF_TXT.format(chat.title,
-                                                           "SuperGroup" if chat.type == "supergroup" else "Channel"))
+                                                           "SuperGroup" if chat.type == "supergroup" else "bot"))
         else:
             await msg.edit(Presets.CHAT_DUPLICATED_TXT, reply_markup=close_with_inline)
     else:
